@@ -1,19 +1,24 @@
 ---
-- name: Install boto3
+- name: Run Terraform to provision resources
   hosts: localhost
-  vars:
-    ansible_python_interpreter: /usr/bin/python3  # Set the Python interpreter her
   gather_facts: no
-  collections:
-    - amazon.aws  # Specify the collection
   tasks:
-    - name: Create S3 Bucket
-      amazon.aws.s3_bucket:
-        name: fffffwersdgsgrgwrgwerf  # Change to a unique bucket name
-        state: present
-        region: eu-west-1  # Specify your desired region
-      register: s3
+    - name: Initialize Terraform
+      command: terraform init
+      args:
+        chdir: /var/lib/awx/projects/_16__ansible_awx/ansible_awx  # Correct path to your Terraform files
 
-    - name: Show S3 Bucket details
+    - name: Apply Terraform configuration
+      command: terraform apply -auto-approve
+      args:
+        chdir: /var/lib/awx/projects/_16__ansible_awx/ansible_awx  # Correct path to your Terraform files
+
+    - name: Terraform Output
+      command: terraform output
+      args:
+        chdir: /var/lib/awx/projects/_16__ansible_awx/ansible_awx  # Correct path to your Terraform files
+      register: output
+
+    - name: Display Terraform Output
       debug:
-        var: s3
+        var: output.stdout_lines
