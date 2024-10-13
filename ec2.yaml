@@ -1,19 +1,25 @@
 ---
 - name: Create S3 Bucket
   hosts: localhost
-  vars:
-    ansible_python_interpreter: /usr/bin/python3  # Set the Python interpreter her
-  gather_facts: no
-  collections:
-    - amazon.aws  # Specify the collection
-  tasks:
-    - name: Create S3 Bucket
-      amazon.aws.s3_bucket:
-        name: fffffwersdgsgrgwrgwerf  # Change to a unique bucket name
-        state: present
-        region: eu-west-1  # Specify your desired region
-      register: s3
+    tasks:
+      - name: Install boto3
+        pip:
+          name: boto3
+          state: present
+        become: yes
+#  vars:
+#    ansible_python_interpreter: /usr/bin/python3  # Set the Python interpreter her
+#  gather_facts: no
+#  collections:
+#    - amazon.aws  # Specify the collection
+#  tasks:
+#    - name: Create S3 Bucket
+#      amazon.aws.s3_bucket:
+#        name: fffffwersdgsgrgwrgwerf  # Change to a unique bucket name
+#        state: present
+#        region: eu-west-1  # Specify your desired region
+#      register: s3
 
-    - name: Show S3 Bucket details
-      debug:
-        var: s3
+#    - name: Show S3 Bucket details
+#      debug:
+#        var: s3
