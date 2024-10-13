@@ -1,12 +1,13 @@
 ---
-- name: Create S3 Bucket
+- name: Install boto3
   hosts: localhost
-    tasks:
-      - name: Install boto3
-        pip:
-          name: boto3
-          state: present
-        become: yes
+  tasks:
+    - name: Install boto3 and botocore
+      pip:
+        name:
+          - boto3
+          - botocore
+        state: present
 #  vars:
 #    ansible_python_interpreter: /usr/bin/python3  # Set the Python interpreter her
 #  gather_facts: no
