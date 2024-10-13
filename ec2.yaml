@@ -2,6 +2,8 @@
 - name: Create EC2 Instance
   hosts: localhost
   gather_facts: no
+  collections:
+    - amazon.aws  # Specify the collection
   tasks:
     - name: Launch EC2 Instance
       ec2:
@@ -18,4 +20,3 @@
     - name: Show instance details
       debug:
         var: ec2
-
