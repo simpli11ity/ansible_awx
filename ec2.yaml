@@ -1,22 +1,17 @@
 ---
-- name: Create EC2 Instance
+- name: Create S3 Bucket
   hosts: localhost
   gather_facts: no
   collections:
     - amazon.aws  # Specify the collection
   tasks:
-    - name: Launch EC2 Instance
-      ec2:
-        instance_type: t2.micro  # Specify the instance type
-        image: ami-0c55b159cbfafe1f0  # Change to a valid AMI ID for your region
-        wait: yes
-        count: 1
-        region: eu-west-1  # Change to your preferred region
-        group: sg-09ad89ddb570e63a0  # Change to your security group name
-        instance_tags:
-          Name: MyEC2Instance  # Tag the instance
-      register: ec2
+    - name: Create S3 Bucket
+      amazon.aws.s3_bucket:
+        name: fffffwersdgsgrgwrgwerf  # Change to a unique bucket name
+        state: present
+        region: eu-west-1  # Specify your desired region
+      register: s3
 
-    - name: Show instance details
+    - name: Show S3 Bucket details
       debug:
-        var: ec2
+        var: s3
